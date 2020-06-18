@@ -20,7 +20,6 @@ import (
 	"net/http"
 	"time"
   "crypto/tls"
-  "fmt"
 
 	"github.com/coinbase/rosetta-sdk-go/asserter"
 	"github.com/coinbase/rosetta-sdk-go/client"
