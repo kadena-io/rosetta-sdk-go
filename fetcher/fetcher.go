@@ -19,6 +19,8 @@ import (
 	"errors"
 	"net/http"
 	"time"
+  "crypto/tls"
+  "fmt"
 
 	"github.com/coinbase/rosetta-sdk-go/asserter"
 	"github.com/coinbase/rosetta-sdk-go/client"
@@ -80,11 +82,15 @@ func New(
 	options ...Option,
 ) *Fetcher {
 	// Create default fetcher
+	tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    }
 	clientCfg := client.NewConfiguration(
 		serverAddress,
 		DefaultUserAgent,
 		&http.Client{
 			Timeout: DefaultHTTPTimeout,
+			Transport: tr,
 		})
 	client := client.NewAPIClient(clientCfg)
 
