@@ -175,8 +175,13 @@ func TestBalanceChanges(t *testing.T) {
 				},
 				Transactions: []*types.Transaction{
 					simpleTransactionFactory("tx1", "addr1", "100", currency),
-					simpleTransactionFactory("tx2", "addr1", "150", currency),
-					simpleTransactionFactory("tx3", "addr2", "150", currency),
+					simpleTransactionFactory("tx2", "addr1", "250", currency),  // Kadena: Operation.amount.value is the total account balance for
+					simpleTransactionFactory("tx3", "addr2", "150", currency),  //         the given account as of that transaction's operation.
+									                                                    //         For example, as of the zeroth operation of
+																																			//         transaction "tx2", account "addr1" has an account
+																																			//         balance of 250 KDA.
+																																			//         But as of the zeroth operation of transaction "tx1",
+																																			//         account "addr1" has an account balance of 100 KDA.
 				},
 				Timestamp: asserter.MinUnixEpoch + 1,
 			},
