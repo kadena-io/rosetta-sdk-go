@@ -92,7 +92,6 @@ func (p *Parser) BalanceChanges(
 
 			amount := op.Amount
 			blockIdentifier := block.BlockIdentifier
-			// undoing orphan blocks seems to require deltas to work!
 			if blockRemoved {
 				negatedValue, err := types.NegateValue(amount.Value)
 				if err != nil {
@@ -120,11 +119,10 @@ func (p *Parser) BalanceChanges(
 				continue
 			}
 
-      newDifference := amount.Value
-			/*newDifference, err := types.AddValues(val.Difference, amount.Value)
+			newDifference, err := types.AddValues(val.Difference, amount.Value)
 			if err != nil {
 				return nil, err
-			}*/
+			}
 			val.Difference = newDifference
 			balanceChanges[key] = val
 		}
